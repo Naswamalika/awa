@@ -2,49 +2,96 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
-// Fungsi untuk menghitung faktorial
-func factorial(n int) int {
-	if n == 0 || n == 1 {
-		return 1
+func latihan2() {
+	var n int
+	fmt.Println("-=-=- PENGISIAN ARRAY INTEGER -=-=-")
+	fmt.Print("Masukkan jumlah elemen array (N): ")
+	fmt.Scan(&n)
+
+	// Membuat array dengan kapasitas n elemen
+	arr := make([]int, n)
+	for i := 0; i < n; i++ {
+		fmt.Printf("Masukkan elemen ke-%d: ", i)
+		fmt.Scan(&arr[i])
 	}
-	result := 1
-	for i := 2; i <= n; i++ {
-		result *= i
+
+	// a. Menampilkan keseluruhan isi dari array
+	fmt.Println("\n-=-=- HASIL OUTPUT -=-=-")
+	fmt.Println("Isi keseluruhan array:", arr)
+
+	// b. Menampilkan elemen-elemen array dengan indeks ganjil saja
+	fmt.Print("Elemen dengan indeks ganjil: ")
+	for i := 1; i < len(arr); i += 2 {
+		fmt.Print(arr[i], " ")
 	}
-	return result
-}
+	fmt.Println()
 
-// Fungsi untuk menghitung permutasi
-func permutation(n, r int) int {
-	return factorial(n) / factorial(n-r)
-}
+	// c. Menampilkan elemen-elemen array dengan indeks genap saja
+	fmt.Print("Elemen dengan indeks genap: ")
+	for i := 0; i < len(arr); i += 2 {
+		fmt.Print(arr[i], " ")
+	}
+	fmt.Println()
 
-// Fungsi untuk menghitung kombinasi
-func combination(n, r int) int {
-	return factorial(n) / (factorial(r) * factorial(n-r))
-}
+	// d. Menampilkan elemen-elemen array dengan indeks kelipatan bilangan x
+	var x int
+	fmt.Print("\n")
+	fmt.Println("-=-=- KELIPATAN INDEKS -=-=-")
+	fmt.Print("Masukkan nilai x untuk indeks kelipatan: ")
+	fmt.Scan(&x)
+	fmt.Println("\n-=-=- HASIL OUTPUT -=-=-")
+	fmt.Printf("Elemen dengan indeks kelipatan %d: ", x)
+	for i := x; i < len(arr); i += x {
+		fmt.Print(arr[i], " ")
+	}
+	fmt.Println()
 
-func perDanKomFungsi() {
-	var a, b, c, d int
+	// e. Menghapus elemen array pada indeks tertentu
+	var delIdx int
+	fmt.Print("\n")
+	fmt.Println("-=-=- PENGHAPUSAN ELEMEN ARRAY -=-=-")
+	fmt.Print("Masukkan indeks yang ingin dihapus: ")
+	fmt.Scan(&delIdx)
+	fmt.Println("\n-=-=- HASIL OUTPUT -=-=-")
+	if delIdx >= 0 && delIdx < len(arr) {
+		arr = append(arr[:delIdx], arr[delIdx+1:]...) // Menghapus elemen array pada indeks tertentu
+		fmt.Println("Isi array setelah penghapusan:", arr)
+	} else {
+		fmt.Println("Indeks tidak valid, where!?")
+	}
 
-	fmt.Print("Latihan 1 Fungsi - Permutasi dan Kombinasi\n")
-	// Meminta input dari pengguna
-	fmt.Println("Masukkan nilai a, b, c, d: ")
-	fmt.Scan(&a, &b, &c, &d)
+	// f. Menampilkan rata-rata dari bilangan yang ada di dalam array
+	var sum int
+	for _, val := range arr {
+		sum += val
+	}
+	average := float64(sum) / float64(len(arr)) // len(arr) adalah panjang array
+	fmt.Printf("Rata-rata elemen array: %.2f\n", average)
 
-	// Menghitung permutasi dan kombinasi untuk a terhadap c
-	p1 := permutation(a, c)
-	c1 := combination(a, c)
+	// g. Menampilkan standar deviasi atau simpangan baku dari bilangan yang ada di dalam array
+	var varianceSum float64
+	for _, val := range arr { // Menghitung varians
+		varianceSum += math.Pow(float64(val)-average, 2) // (x - rata-rata)^2
+	}
+	standardDeviation := math.Sqrt(varianceSum / float64(len(arr))) // Standar deviasi = akar dari varians
+	fmt.Printf("Standar deviasi elemen array: %.2f\n", standardDeviation)
 
-	// Menghitung permutasi dan kombinasi untuk b terhadap d
-	p2 := permutation(b, d)
-	c2 := combination(b, d)
-
-	// Output hasil
-	fmt.Printf("P(%d,%d) = %d\n", a, c, p1)
-	fmt.Printf("C(%d,%d) = %d\n", a, c, c1)
-	fmt.Printf("P(%d,%d) = %d\n", b, d, p2)
-	fmt.Printf("C(%d,%d) = %d\n", b, d, c2)
+	// h. Menampilkan frekuensi dari suatu bilangan tertentu
+	var target int
+	fmt.Print("\n")
+	fmt.Println("-=-=- FREKUENSI KEMUNCULAN BILANGAN -=-=-")
+	fmt.Print("Masukkan bilangan untuk mencari frekuensinya: ")
+	fmt.Scan(&target)
+	frequency := 0 // Inisialisasi frekuensi adalah 0
+	for _, val := range arr { // untuk setiap elemen array
+		if val == target { // jika elemen array sama dengan target
+			frequency++ // tambahkan frekuensi
+		}
+	}
+	fmt.Println("\n-=-=- HASIL OUTPUT -=-=-")
+	fmt.Printf("Frekuensi kemunculan %d: %d kali\n", target, frequency)
+	fmt.Print("\n")
 }

@@ -1,44 +1,73 @@
 package main
 
 import (
-    "fmt"
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
 )
 
-// Fungsi dasar
-func f(x int) int {
-    return x * x // fungsi ini mengembalikan nilai x pangkat 2
-}
+func latihan3() {
+	var clubA, clubB string
+	var winningClubs []string
 
-func g(x int) int {
-    return x - 2 // fungsi ini mengembalikan nilai x dikurangi 2
-}
+	fmt.Println("\n-=-=- PERTANDINGAN BOLA -=-=-")
+	fmt.Println("Masukkan nama klub A dan klub B untuk memulai pertandingan!")
 
-func h(x int) int {
-    return x + 1 // fungsi ini mengembalikan nilai x ditambah 1
-}
+	// Membaca nama klub A dan klub B
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Klub A: ")
+	clubA, _ = reader.ReadString('\n') // Membaca input dari user, _ adalah variabel untuk menampung error
+	clubA = strings.TrimSpace(clubA) // Menghapus spasi di awal dan akhir string, TrimSpace berfungsi untuk menghapus spasi di awal dan akhir string
 
-// Fungsi komposisi sesuai instruksi modul
-func fogoh(x int) int {
-    return f(g(h(x))) // Alasan fogoh bisa menjadi f(g(h(x))) adalah karena h(x), g(x), dan f(x) adalah fungsi yang bisa dijalankan secara berurutan
-}
+	fmt.Print("Klub B: ")
+	clubB, _ = reader.ReadString('\n') // Membaca input dari user, _ adalah variabel untuk menampung error
+	clubB = strings.TrimSpace(clubB) // Menghapus spasi di awal dan akhir string, TrimSpace berfungsi untuk menghapus spasi di awal dan akhir string
 
-func gohof(x int) int {
-    return g(h(f(x))) // Alasan gohof bisa menjadi g(h(f(x))) adalah karena f(x), h(x), dan g(x) adalah fungsi yang bisa dijalankan secara berurutan
-}
+	match := 1
 
-func hofog(x int) int {
-    return h(f(g(x))) // Alasan hofog bisa menjadi h(f(g(x))) adalah karena g(x), f(x), dan h(x) adalah fungsi yang bisa dijalankan secara berurutan
-}
+	fmt.Println("\nMasukkan skor pertandingan dengan format 'skorA skorB'!")
+	// Loop untuk memasukkan skor pertandingan
+	for {
+		fmt.Printf("Pertandingan %d: ", match)
 
-func matematika() {
-    var a, b, c int
+		// Membaca skor pertandingan
+		input, _ := reader.ReadString('\n') // Membaca input dari user, _ adalah variabel untuk menampung error
+		input = strings.TrimSpace(input)
+		scores := strings.Split(input, " ") // Memisahkan input berdasarkan spasi
 
-    fmt.Print("Latihan 2 Fungsi - Fungsi Matematika\n")
+		// Menghentikan loop jika input skor tidak valid
+		if len(scores) != 2 { // Jika input tidak memiliki dua skor, maka hentikan loop
+			fmt.Println("Input tidak valid. Pertandingan selesai!")
+			break
+		}
 
-    fmt.Print("Masukkan nilai a, b, c: ")
-    fmt.Scanf("%d %d %d", &a, &b, &c)
+		// Mengubah string ke integer, strconv.Atoi() mengembalikan dua nilai, yaitu nilai integer dan error
+		scoreA, errA := strconv.Atoi(scores[0]) 
+		scoreB, errB := strconv.Atoi(scores[1]) 
 
-    fmt.Println("fogoh(",a,") =", fogoh(a))  // fogoh(a)
-    fmt.Println("gohof(",b,") =", gohof(b))  // gohof(b)
-    fmt.Println("hofog(",c,") =", hofog(c))  // hofog(c)
+		// Menghentikan loop jika skor tidak valid (negatif atau bukan angka)
+		if errA != nil || errB != nil || scoreA < 0 || scoreB < 0 {
+			fmt.Println("Skor tidak valid. Pertandingan selesai!")
+			break
+		}
+
+		// Menentukan pemenang pertandingan dan menambahkannya ke daftar pemenang
+		if scoreA > scoreB {
+			winningClubs = append(winningClubs, fmt.Sprintf("Hasil %d : %s", match, clubA))
+		} else if scoreA < scoreB {
+			winningClubs = append(winningClubs, fmt.Sprintf("Hasil %d : %s", match, clubB))
+		} else {
+			winningClubs = append(winningClubs, fmt.Sprintf("Hasil %d : Draw", match))
+		}
+
+		match++
+	}
+
+	// Menampilkan review pemenang setiap pertandingan
+	fmt.Println("\n-=-=- HASIL PERTANDINGAN -=-=-")
+	for _, result := range winningClubs { // Untuk setiap hasil pertandingan,
+		fmt.Println(result) // cetak hasil pertandingan
+	}
 }
