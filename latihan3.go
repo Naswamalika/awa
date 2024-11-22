@@ -1,38 +1,44 @@
 package main
 
 import (
-	"fmt"
-	"math"
+    "fmt"
 )
 
-func perulanganLatihan3() {
-	var weight1, weight2 float64
+// Fungsi dasar
+func f(x int) int {
+    return x * x // fungsi ini mengembalikan nilai x pangkat 2
+}
 
-	for {
-		// Masukkan berat belanjaan
-		fmt.Print("Masukan berat belanjaan di kedua kantong: ")
-		fmt.Scan(&weight1, &weight2)
+func g(x int) int {
+    return x - 2 // fungsi ini mengembalikan nilai x dikurangi 2
+}
 
-		// Periksa apakah ada berat yang negatif, jika ada maka hentikan program
-		if weight1 < 0 || weight2 < 0 {
-			break
-		}
+func h(x int) int {
+    return x + 1 // fungsi ini mengembalikan nilai x ditambah 1
+}
 
-		// Hitung perbedaan antara kedua berat, jika lebih dari 9 maka motor akan oleng
-		diff := math.Abs(weight1 - weight2)
+// Fungsi komposisi sesuai instruksi modul
+func fogoh(x int) int {
+    return f(g(h(x))) // Alasan fogoh bisa menjadi f(g(h(x))) adalah karena h(x), g(x), dan f(x) adalah fungsi yang bisa dijalankan secara berurutan
+}
 
-		// Periksa apakah motor akan oleng
-		if diff >= 9 {
-			fmt.Println("Sepeda motor pak Andi akan oleng: true")
-		} else {
-			fmt.Println("Sepeda motor pak Andi akan oleng: false")
-		}
+func gohof(x int) int {
+    return g(h(f(x))) // Alasan gohof bisa menjadi g(h(f(x))) adalah karena f(x), h(x), dan g(x) adalah fungsi yang bisa dijalankan secara berurutan
+}
 
-		// Periksa apakah total berat melebihi 150 kg, jika ya maka hentikan program
-		if weight1+weight2 > 150 {
-			break
-		}
-	}
+func hofog(x int) int {
+    return h(f(g(x))) // Alasan hofog bisa menjadi h(f(g(x))) adalah karena g(x), f(x), dan h(x) adalah fungsi yang bisa dijalankan secara berurutan
+}
 
-	fmt.Println("Proses selesai.")
+func matematika() {
+    var a, b, c int
+
+    fmt.Print("Latihan 2 Fungsi - Fungsi Matematika\n")
+
+    fmt.Print("Masukkan nilai a, b, c: ")
+    fmt.Scanf("%d %d %d", &a, &b, &c)
+
+    fmt.Println("fogoh(",a,") =", fogoh(a))  // fogoh(a)
+    fmt.Println("gohof(",b,") =", gohof(b))  // gohof(b)
+    fmt.Println("hofog(",c,") =", hofog(c))  // hofog(c)
 }

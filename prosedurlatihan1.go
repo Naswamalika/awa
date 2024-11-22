@@ -5,7 +5,7 @@ import (
 )
 
 // Fungsi untuk menghitung faktorial
-func factorial(n int) int {
+func prosedurFactorial(n int) int {
 	if n == 0 || n == 1 {
 		return 1
 	}
@@ -17,30 +17,30 @@ func factorial(n int) int {
 }
 
 // Fungsi untuk menghitung permutasi
-func permutation(n, r int) int {
-	return factorial(n) / factorial(n-r)
+func prosedurPermutation(n, r int) int {
+	return prosedurFactorial(n) / prosedurFactorial(n-r)
 }
 
 // Fungsi untuk menghitung kombinasi
-func combination(n, r int) int {
-	return factorial(n) / (factorial(r) * factorial(n-r))
+func prosedurCombination(n, r int) int {
+	return prosedurFactorial(n) / (prosedurFactorial(r) * prosedurFactorial(n-r))
 }
 
-func perDanKomFungsi() {
+func perDanKomProsedur() {
 	var a, b, c, d int
 
-	fmt.Print("Latihan 1 Fungsi - Permutasi dan Kombinasi\n")
+	fmt.Print("Latihan 1 Prosedur - Permutasi dan Kombinasi\n")
 	// Meminta input dari pengguna
 	fmt.Println("Masukkan nilai a, b, c, d: ")
 	fmt.Scan(&a, &b, &c, &d)
 
 	// Menghitung permutasi dan kombinasi untuk a terhadap c
-	p1 := permutation(a, c)
-	c1 := combination(a, c)
+	p1 := prosedurPermutation(a, c)
+	c1 := prosedurCombination(a, c)
 
 	// Menghitung permutasi dan kombinasi untuk b terhadap d
-	p2 := permutation(b, d)
-	c2 := combination(b, d)
+	p2 := prosedurPermutation(b, d)
+	c2 := prosedurCombination(b, d)
 
 	// Output hasil
 	fmt.Printf("P(%d,%d) = %d\n", a, c, p1)
